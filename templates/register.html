@@ -1,0 +1,56 @@
+{% extends "base_template.html" %}
+
+{% block titulo %}
+SudFinanzas Register
+{% endblock %}
+
+
+{% block contenido %}
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/register.css') }}">
+
+<div class="container-register container">
+    <div class="main-container-register">
+        <div class="titulo">
+            <h1 class="text-center">Registro de usuarios</h1>
+        </div>
+        <form action="/register" method="POST">
+            {{ form_registro.hidden_tag() }}
+            <div class="mb-3">
+                {{ form_registro.nombre.label }}
+                {{ form_registro.nombre(class="form-control") }}
+                {% for error in form_registro.nombre.errors %}
+                <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div class="mb-3">
+                {{ form_registro.apellidos.label }}
+                {{ form_registro.apellidos(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form_registro.correo.label }}
+                {{ form_registro.correo(class="form-control") }}
+                {% for error in form_registro.correo.errors %}
+                <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div class="mb-3">
+                {{ form_registro.privilegios.label }}
+                {{ form_registro.privilegios(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form_registro.clave.label }}
+                {{ form_registro.clave(class="form-control") }}
+                {% for error in form_registro.clave.errors %}
+                <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div class="mb-3">
+                {{ form_registro.confirmar_clave.label }}
+                {{ form_registro.confirmar_clave(class="form-control") }}
+            </div>
+            {{ form_registro.submit(class="btn") }}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

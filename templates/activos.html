@@ -1,0 +1,63 @@
+{% extends "base_template.html" %}
+
+{% block titulo %}
+Activos
+{% endblock %}
+
+{% block contenido %}
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/activos.css') }}">
+<script type="text/javascript" src="{{ url_for('static' , filename='JavaScript/show-form-delete.js') }}" defer></script>
+
+<div class="container">
+    <div class="main-container-activos">
+        <h2 style="text-align: center; text-decoration: underline; margin-bottom: 20px;">Activos Retirados</h2>
+        {% for activo in activos %}
+            {% if activo.retirado != 1  %}
+                <div class="activo">
+                    <div class="info">
+                        <div class="nombre">
+                            <label>Nombre del Activo: </label>
+                            <strong>{{ activo.categoria.categoria }}</strong>
+                        </div>
+                        <div class="valor">
+                            <label>Valor del Activo: </label>
+                            <strong>{{ activo.valor }}</strong>
+                        </div>
+                        <div class="cantidad-stock">
+                            <label>Cantidad en Stock: </label>
+                            <strong>{{ activo.cantidad }}</strong>
+                        </div>
+                    </div>
+                    <div class="btnes">
+                        <button class="eliminar btn btn-warning">Retirar Activo</button>
+                        <button type="button" class="btn btn-info">Editar Activo</button>
+                    </div>
+                </div>
+                <form action="{{ url_for('retiro_activo', id_activo=activo.id) }}" method="POST" class="delete-activo">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="form-group">
+                        {{ form.razon.label }}
+                        {{ form.razon(class="form-control", id="razon_retiro") }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{form.recibe.label}}
+                        {{ form.recibe(class="form-control", id="recibe") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.cantidad.label }}
+                        {{ form.cantidad() }}
+                    </div>
+                    
+                    {{ form.submit(class="btn btn-danger") }}
+                    <button class="cancelar btn btn-close " aria-label="Close"></button>
+                </form>
+                
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

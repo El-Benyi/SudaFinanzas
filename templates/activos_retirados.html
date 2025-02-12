@@ -1,0 +1,27 @@
+{% extends "base_template.html" %}
+
+{% block titulo %}
+Activos
+{% endblock %}
+
+{% block contenido %}
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/activos_retiro.css') }}">
+
+<div class="container">
+    <div class="main-container-activos">
+        <h2 style="text-align: center; text-decoration: underline; margin-bottom: 20px;">Activos Retirados</h2>
+        {% for retiro in retiros %}
+            <div class="activos-retirados">
+                <ul>
+                    <li>Activo: {{ retiro.activo.categoria.categoria }}</li> 
+                    <li>Razón de Retiro: {{ retiro.razon }}</li>
+                    <li>Retirado para: {{ retiro.recibe }}</li>
+                    <li>Cantidad Retirada: {{ retiro.cantidad }}</li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

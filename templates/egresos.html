@@ -1,0 +1,24 @@
+{% extends "base_template.html" %}
+{% block titulo %}
+    Suda Finanzas
+{% endblock %}
+
+{% block contenido %}
+
+
+<div class="container">
+    <h1>Egresos</h1>
+
+    <div class="dropdownn dropend">
+        <button type="button" class="dropdown-toggle btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false">Opciones descuento</button>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li><a href="/pago_horas_extra" class="nav-link dropdown-item">Pagar Horas Extra</a></li>
+            <li><a href="/pago_reemplazos" class="nav-link dropdown-item">Pagar Reemplazos</a></li>
+            <li><a href="/pago_sueldos" class="nav-link dropdown-item">Pagar Sueldos</a></li>
+        </ul>
+      </div>
+</div>
+
+
+
+{% endblock %}

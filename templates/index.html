@@ -1,0 +1,57 @@
+{% extends "base_template.html" %}
+{% block titulo %}
+    Suda Finanzas
+{% endblock %}
+
+{% block contenido %}
+
+<script src="https://cdn.socket.io/4.1.3/socket.io.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='JavaScript/actualizar_tiempo_real.js') }}" defer></script>
+
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/index.css') }}">
+
+<div class="main-container">
+    <div class="container-ingresos">
+        <form method="GET" action="/home">
+            <select name="filtro_año" onchange="this.form.submit()">
+                <option value="">Filtrar por año</option>
+                {% for year in range(2024, 2036) %}
+                    <option value="{{ year }}" {% if request.args.get('filtro_año') == year|string %}selected{% endif %}>
+                        {{ year }}
+                    </option>
+                {% endfor %}
+            </select>
+            
+            <a href="#Egresos">Ver Egresos</a>
+        </form>
+        <div class="container-transacciones">
+            
+            <div class="main-container-fondos">
+                <div class="container-fondos">
+                    <h2>Historial Ingresos</h2>
+                    <div class="fondos">
+                        {% for ingreso in ingresos %}
+                        <div class="tarjeta">
+                            <ul>
+                                <li><strong>Cliente:</strong> {{ ingreso.cliente }}</li>
+                                <li><strong>Establecimiento:</strong> {{ ingreso.establecimiento }}</li>
+                                <li><strong>Responsable:</strong> {{ ingreso.responsable_pago }}</li>
+                                <li><strong>N° Factura:</strong> {{ ingreso.num_factura }}</li>
+                                <li><strong>Fecha:</strong> {{ ingreso.dia }}/{{ ingreso.mes }}/{{ ingreso.año }}</li>
+                                <li><strong>Medio de Pago:</strong> {{ ingreso.medio_pago }}</li>
+                                <li><strong>Monto:</strong> ${{ ingreso.monto }}</li>
+                                <li><strong>Descuento:</strong> ${{ ingreso.descuento }}</li>
+                                <li><strong>Total con Descuento:</strong> ${{ ingreso.total_descuento }}</li>
+                                <li><strong>Total Utilidad:</strong> ${{ ingreso.total_utilidad }}</li>
+                                <li><strong>Concepto de Pago:</strong> {{ ingreso.concepto_pago }}</li>
+                                <li><strong>Motivo:</strong> {{ ingreso.motivo_ingreso }}</li>
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div> 
+</div>
+{% endblock %}

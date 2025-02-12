@@ -1,0 +1,22 @@
+.main-container-activos{
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    background-color: #fff;
+}
+
+.activo{
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px 10px 20px 10px;
+    margin-bottom: 20px;
+    background-color: red;
+    border: 2px solid black;
+    color: #fff;
+}
+
+.delete-activo{
+    display: none;
+}
+
+

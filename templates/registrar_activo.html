@@ -1,0 +1,40 @@
+{% extends "base_template.html" %}
+
+{% block titulo %}
+Bienvenido al sitio!
+{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+    <form method="post" action="{{ url_for("activos") }}">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.categoria_id.label() }}
+            {{ form.categoria_id() }}
+        </div>
+        <div class="mb-3">
+            {{ form.valor.label() }}
+            {{ form.valor() }}
+        </div>
+        <div class="mb-3">
+            {{ form.tipo_activo.label() }}
+            {{ form.tipo_activo() }}
+        </div>
+        <div class="mb-3">
+            {{ form.cantidad.label }}
+            {{ form.cantidad(class="form-control", id="cantidad") }}
+        </div>
+        {{ form.submit(class="btn btn-success") }}
+    </form>
+
+    <div class="container-categoria">
+        <h2>Crear Categoria de Activo</h2>
+        <form action="" method="POST">
+            
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base_template.html" %}
+{% block titulo %}
+    Suda Finanzas
+{% endblock %}
+
+{% block contenido %}
+
+
+<div class="container">
+    <h1>Pago por reemplazo</h1>
+    <form action="{{ url_for('pago_reemplazo') }}" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.nombre.label() }}
+            {{ form.nombre(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.rut.label() }}
+            {{ form.rut(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.dia_trabajado.label() }}
+            {{ form.dia_trabajado(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.turno.label() }}
+            {{ form.turno(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.monto_pagar.label() }}
+            {{ form.monto_pagar(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.nombre_paga.label() }}
+            {{ form.nombre_paga(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.pago_cotizacion.label() }}
+            {{ form.pago_cotizacion(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.pago_sueldo.label() }}
+            {{ form.pago_sueldo(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-success") }}
+    </form>
+</div>
+
+
+
+{% endblock %}

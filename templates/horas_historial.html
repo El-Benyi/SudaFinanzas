@@ -1,0 +1,40 @@
+{% extends "base_template.html" %}
+{% block titulo %}
+    Suda Finanzas
+{% endblock %}
+
+{% block contenido %}
+
+<div class="main-container-fondos container">
+    <div class="container-fondos">
+        <h2>Historial Egresos</h2>
+        <div class="fondos">
+            {% for hora in horas %}
+            <div class="tarjeta">
+                <ul>
+                    <li><strong>Nombre:</strong> {{ hora.nombre }}</li>
+                    <li><strong>Rut:</strong> {{ hora.rut }}</li>
+                    <li><strong>Día Trabajado:</strong> {{ hora.dia_trabajado }}</li>
+                    <li><strong>Turno:</strong> {{ hora.turno }}</li>
+                    <li><strong>Monto a Pagar:</strong> {{ hora.monto_pagar }}</li>
+                    <li><strong>Quién Paga:</strong> {{ hora.nombre_paga }}</li>
+                </ul>
+            </div>
+            {% endfor %}
+            {% for hora in horas %}
+            <div class="tarjeta">
+                <ul>
+                    <li><strong>Nombre:</strong> {{ hora.nombre }}</li>
+                    <li><strong>Rut:</strong> {{ hora.rut }}</li>
+                    <li><strong>Día Trabajado:</strong> {{ hora.dia_trabajado }}</li>
+                    <li><strong>Turno:</strong> {{ hora.turno }}</li>
+                    <li><strong>Monto a Pagar:</strong> {{ hora.monto_pagar }}</li>
+                    <li><strong>Quién Paga:</strong> {{ hora.nombre_paga }}</li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

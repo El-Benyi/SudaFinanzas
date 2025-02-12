@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container-register{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.main-container-register{
+    width: 45%;
+    height: 70vh; 
+    background-color: azure;
+    color: black;
+    padding: 10px 10px 20px 10px;
+    border-radius: 40px;
+}
+.btn{
+    background-color: #8ac958;
+    color: black;
+}
+.btn:hover{
+    background-color: #8ac958;
+    transition: 0.2s;
+    transform: scale(1.02);
+    color: black;
+}
+.form-control{
+    background-color: rgba(104, 85, 85, 0.27)
+}

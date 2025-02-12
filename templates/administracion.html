@@ -1,0 +1,49 @@
+{% extends "base_template.html" %}
+
+{% block titulo %}
+Administración
+{% endblock %}
+
+{% block contenido %}
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/admin.css') }}">
+<script type="text/javascript" src="{{ url_for('static' , filename='JavaScript/show-form.js') }}" defer></script>
+
+
+<div class="container">
+    <div class="container-users container-fluid"> 
+        <h2 class="text-center">Administrador de Usuarios</h2>
+        {% for users in user %}
+            {% if current_user.id != users.id %}
+                <div class="main-container-users">
+                    <div class="container-info">
+                        <strong>{{ users.nombre }} {{ users.apellidos }}  | 
+                            <span class="privilegios">{{ users.privilegios }}</span> | 
+                        </strong>
+                    </div>
+                    <div class="btnes">
+                        <a href="/editar_usuario/{{ users.id }}" class="btn btn-info editar">
+                            Editar Usuario <i class='bx bx-edit'></i>
+                        </a>
+                        <button class="eliminar btn btn-danger">Eliminar Usuario <i class='bx bxs-trash'></i></button>
+                    </div>
+                </div>
+            {% endif %}
+            
+
+            <div class="show-container">
+                <div class="container-delete container-fluid">
+                    <h2>¿Está seguro de querer eliminar a este usuario?</h2>
+                    <div class="container-btnes">
+                        <form action="/eliminar_usuario/{{ users.id }}">
+                            <button class="confirm-eliminar btn btn-danger" disabled>Eliminar en 5s</button>
+                        </form>
+                        <button type="button" class="cancelar btn btn-warning">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

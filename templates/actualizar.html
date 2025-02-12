@@ -1,0 +1,40 @@
+{% extends "base_template.html" %}
+
+{% block titulo %}
+Configuración
+{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+    <form method="POST">
+        <div class="mb-3">
+            <h2>Editor de Perfil</h2>
+        </div>
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-3">
+            {{ form.nombre.label() }}
+            {{ form.nombre(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.apellidos.label() }}
+            {{ form.apellidos(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.privilegios.label() }}
+            {{ form.privilegios(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.correo.label() }}
+            {{ form.correo(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.clave.label() }}
+            {{ form.clave(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-success") }}
+    </form>
+</div>
+
+{% endblock %}

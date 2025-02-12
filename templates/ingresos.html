@@ -1,0 +1,90 @@
+{% extends "base_template.html" %}
+{% block titulo %}
+    Suda Finanzas
+{% endblock %}
+
+{% block contenido %}
+
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/ingresos.css') }}">
+
+<div class="main-container container-fluid">
+    <h1 style="text-align: center;">Ingresos</h1>
+    <div class="dinero" style="display: flex; flex-direction: column;">
+      <h3>Monto Actual</h3>
+      <span id="dinero">$ {{ dinero_actual.monto_actual }}</span>
+    </div>
+    <div class="btn-finanzas">
+      <button type="button" id="ing_fondos" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ingresarModal">Ingresar Fondos</button>
+    </div>
+    <div class="modal fade" id="ingresarModal" tabindex="-1" aria-labelledby="ingresarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="ingresarModalLabel">Ingresar Fondos</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="{{ url_for("ingresar_fondos") }}" method="POST">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                  {{ form.cliente.label() }}
+                  {{ form.cliente(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.establecimiento.label() }}
+                  {{ form.establecimiento(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.responsable.label() }}
+                  {{ form.responsable(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.numero_factura.label() }}
+                  {{ form.numero_factura(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.dia.label() }}
+                  {{ form.dia(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.mes.label() }}
+                  {{ form.mes(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.año.label() }}
+                  {{ form.año(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.medio_pago.label() }}
+                  {{ form.medio_pago(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.ingresar_fondos.label() }}
+                  {{ form.ingresar_fondos(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.impuesto.label() }}
+                  {{ form.impuesto(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.concepto_pago.label() }}
+                  {{ form.concepto_pago(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                  {{ form.motivo_ingreso.label() }}
+                  {{ form.motivo_ingreso(class="form-control") }}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar Ingreso</button>
+                  {{ form.submit(class="btn btn-success") }}
+                </div>
+              </form> 
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+
+{% endblock %}

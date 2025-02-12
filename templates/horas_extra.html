@@ -1,0 +1,43 @@
+{% extends "base_template.html" %}
+{% block titulo %}
+    Suda Finanzas
+{% endblock %}
+
+{% block contenido %}
+
+
+<div class="container">
+    <h1>Pago por horas extra</h1>
+    <form action="{{ url_for('pago_horas_extra') }}" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.nombre.label() }}
+            {{ form.nombre(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.rut.label() }}
+            {{ form.rut(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.dia_trabajado.label() }}
+            {{ form.dia_trabajado(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.turno.label() }}
+            {{ form.turno(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.monto.label() }}
+            {{ form.monto(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.quien_paga.label() }}
+            {{ form.quien_paga(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-success") }}
+    </form>
+</div>
+
+
+
+{% endblock %}
