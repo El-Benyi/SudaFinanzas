@@ -6,34 +6,35 @@ Bienvenido al sitio!
 
 {% block contenido %}
 
-<div class="container">
-    <form method="post" action="{{ url_for("activos") }}">
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/register-cat.css') }}">
+
+<div class="main-container">
+    
+    <form method="post" action="{{ url_for("activos") }}" class="formulario-activos">
+        <h1 class="text-center">Añadir Activo</h1>
         {{ form.hidden_tag() }}
         <div class="mb-3">
             {{ form.categoria_id.label() }}
-            {{ form.categoria_id() }}
+            {{ form.categoria_id(class="form-select")  }}
         </div>
         <div class="mb-3">
             {{ form.valor.label() }}
-            {{ form.valor() }}
+            {{ form.valor(class="form-control") }}
         </div>
         <div class="mb-3">
             {{ form.tipo_activo.label() }}
-            {{ form.tipo_activo() }}
+            {{ form.tipo_activo(class="form-select") }}
         </div>
         <div class="mb-3">
             {{ form.cantidad.label }}
             {{ form.cantidad(class="form-control", id="cantidad") }}
         </div>
         {{ form.submit(class="btn btn-success") }}
+        <div class="añadir">
+            <p>Para crear categoria pincha aquí <a href="/activos/registrar-categoria" class="btn btn-link">Registrar categoria</a></p>
+        </div>
     </form>
-
-    <div class="container-categoria">
-        <h2>Crear Categoria de Activo</h2>
-        <form action="" method="POST">
-            
-        </form>
-    </div>
+        
 </div>
 
 

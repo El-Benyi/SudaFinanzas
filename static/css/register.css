@@ -1,9 +1,23 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-.container-register{
+
+body {
+
+    background-image: url(../img/finanzas.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin: 0;
+}
+
+.container-register {
     width: 100%;
     height: 100vh;
     display: flex;
@@ -11,24 +25,63 @@
     align-items: center;
     justify-content: center;
 }
-.main-container-register{
+
+.main-container-register {
     width: 45%;
-    height: 70vh; 
-    background-color: azure;
-    color: black;
+    height: auto; 
+    background-color: transparent;
+    backdrop-filter: blur(15px); 
+    color: #fff;
     padding: 10px 10px 20px 10px;
     border-radius: 40px;
+    box-sizing: border-box;
+    border: 2px solid rgba(255, 255, 255, 0.2); 
 }
-.btn{
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.btn {
     background-color: #8ac958;
     color: black;
+    width: 100%; 
 }
-.btn:hover{
+
+.btn:hover {
     background-color: #8ac958;
     transition: 0.2s;
     transform: scale(1.02);
     color: black;
 }
-.form-control{
-    background-color: rgba(104, 85, 85, 0.27)
+
+.form-control {
+    background-color: rgba(104, 85, 85, 0.27);
+    margin-bottom: 15px;
+}
+
+@media (max-width: 1024px) {
+    .main-container-register {
+        width: 60%; 
+    }
+}
+
+@media (max-width: 767px) {
+    .main-container-register {
+        width: 85%; 
+        padding: 15px; 
+    }
+
+    .btn {
+        font-size: 18px; 
+    }
+
+    .form-control {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
 }

@@ -1,0 +1,173 @@
+.main-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.container-reportes {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.report-form {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.report-form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.report-form .form-control {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.report-form .btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.report-form .btn:hover {
+    background-color: #0056b3;
+}
+
+.container-reportes .sub-container {
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en columna por defecto */
+    width: 80%;
+    height: 90%;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: rgb(34,193,195);
+    background: linear-gradient(164deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    overflow-y: auto;
+}
+
+.container-reportes .sub-container .top-row {
+    display: flex;
+    justify-content: space-between; /* Asegura que los ingresos y egresos estén en una línea */
+    width: 100%;
+    margin-bottom: 20px; /* Espacio entre los ingresos/egresos y los beneficios */
+}
+
+.container-reportes .sub-container .container-ingresos-t,
+.container-reportes .sub-container .container-egresos-t {
+    width: 48%; /* Ajuste para que se acomoden en una fila */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container-reportes .sub-container .container-ingresos-t {
+    background-color: #28a745;
+    height: 250px;
+}
+
+.container-reportes .sub-container .container-egresos-t {
+    background-color: #dc3545;
+    height: 250px;
+}
+
+.container-reportes .sub-container .container-no-t {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 10px;
+    background-color: #343a40;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.container-reportes .sub-container .container-beneficios {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #17a2b8;
+}
+
+.container-reportes .sub-container .container-ingresos-t h3 {
+    color: #28a745;
+    color: #fff;
+}
+
+.container-reportes .sub-container .container-egresos-t h3 {
+    color: #dc3545;
+    color: #fff;
+}
+
+.container-reportes .sub-container .container-beneficios h1,
+.container-reportes .sub-container .container-no-t h1 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.container-reportes .sub-container .container-ingresos-t h1,
+.container-reportes .sub-container .container-egresos-t h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 768px) {
+    .container-reportes .sub-container .top-row {
+        flex-direction: column; /* Cambia a columna para pantallas pequeñas */
+        align-items: center; /* Alinea los elementos en el centro */
+    }
+
+    .container-reportes .sub-container .container-ingresos-t,
+    .container-reportes .sub-container .container-egresos-t {
+        width: 100%; /* Los elementos ocuparán toda la pantalla */
+        margin-bottom: 20px; /* Espacio entre los recuadros */
+    }
+
+    .container-reportes .sub-container .container-beneficios {
+        width: 100%; /* Los beneficios también ocupan toda la pantalla */
+        margin-top: 20px; /* Espacio entre los beneficios y los otros recuadros */
+    }
+}

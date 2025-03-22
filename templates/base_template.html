@@ -20,82 +20,115 @@
     <link rel="stylesheet" href="{{ url_for('static' , filename='css/all.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script type="text/javascript" src="{{ url_for('static', filename='JavaScript/navbar.js') }}" defer></script>
+    <link rel="shortcut icon" href="/static/img/logo.jpg" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" defer></script>
 </head>
 <body>
     {% if current_user.is_authenticated %}
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="logo-container">
-            <img src="../static/img/logo.jpg" alt="logo" class="logo img-fluid">
+            <img src="/static/img/logo.jpg" alt="logo" class="logo img-fluid">
         </div>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <a href="/home" class="nav-link"><i class='bx bxs-home'></i> Inicio</a>
-        <div class="dropdown dropend">
-            <button type="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bx-money'></i> Movimientos</button>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a href="/ingresos" class="nav-link dropdown-item">Ingresos</a></li>
-                <li><a href="/egresos" class="nav-link dropdown-item">Egresos</a></li>
-            </ul>
+        <div class="btnesNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <h5 class="text-center bienvenida">Bienvenido {{ current_user.nombre }}</h5>
+    
+            <a href="/home" class="nav-link boton-nav"><i class='bx bxs-home'></i> Inicio</a>
+            
+            <div class="dropdown dropend" id="clientes">
+                <button type="button" class="nav-link dropdown-toggle boton-nav" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class='bx bx-user'></i> Clientes
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a href="/nuevo-cliente" class="nav-link dropdown-item">Añadir Cliente</a></li>
+                    <li><a href="/clientes" class="nav-link dropdown-item">Lista de Clientes</a></li>
+                </ul>
+            </div>
+    
+            <div class="dropdown dropend" id="movimientos">
+                <button type="button" class="nav-link dropdown-toggle boton-nav" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class='bx bx-money'></i> Movimientos
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a href="/ingresos" class="nav-link dropdown-item">Ingresos</a></li>
+                    <li><a href="/egresos" class="nav-link dropdown-item">Egresos</a></li>
+                </ul>
+            </div>
+    
+            <a href="/reportes" class="nav-link boton-nav"><i class='bx bx-bar-chart-alt'></i> Reportes</a>
+    
+            {% if current_user.privilegios in ["Total", "Permitir"] %}
+            <div class="dropdown dropend" id="activosID">
+                <button type="button" class="nav-link dropdown-toggle boton-nav" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class='bx bxs-archive-in'></i> Activos
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    {% if current_user.privilegios == "Total" %}
+                        <li><a href="/activos/registrar-categoria" class="nav-link dropdown-item"><ion-icon name="add-circle-outline"></ion-icon> Registro Categoría</a></li>
+                        <li><a href="/activos/registrar-activos" class="nav-link dropdown-item"><ion-icon name="add-circle-outline"></ion-icon> Añadir Activos</a></li>
+                    {% endif %}
+                    <li><a href="/activos" class="nav-link dropdown-item"><ion-icon name="albums-outline"></ion-icon> Activos Disponibles</a></li>
+                    <li><a href="/activos/activos-retirados" class="nav-link dropdown-item"><ion-icon name="share-outline"></ion-icon> Activos Retirados</a></li>
+                </ul>
+            </div>
+    
+            <a href="/administracion" class="nav-link boton-nav"><i class='bx bx-group'></i> Administración</a>
+    
+            {% if current_user.privilegios == "Total" %}
+                <a href="/register" class="nav-link boton-nav"><i class='bx bxs-user-plus'></i> Registrar usuario</a>
+            {% endif %}
+            {% endif %}
+    
+            <a href="/logout" class="nav-link boton-nav"><i class='bx bx-power-off'></i> Cerrar Sesión</a>
         </div>
-        <a href="/reportes" class="nav-link"><i class='bx bx-bar-chart-alt'></i> Reportes</a>
-        {% if current_user.privilegios == "Permitir" %}
-        <div class="dropdown dropend">
-            <button type="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bxs-archive-in'></i> Activos</button>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a href="/registrar-categoria" class="nav-link"><ion-icon name="add-circle-outline"></ion-icon> Registro Categoria</a></li> 
-                <li><a href="/activos" class="nav-link"><ion-icon name="albums-outline"></ion-icon> Activos Disponibles</a></li>
-                <li><a href="/registrar-activos" class="nav-link"><ion-icon name="add-circle-outline"></ion-icon> Añadir Activos</a></li>
-                <li><a href="/activos-retirados" class="nav-link"><ion-icon name="share-outline"></ion-icon> Activos Retirados</a></li>
-            </ul>
-        </div>
-            <a href="/configuracion" class="nav-link"><i class='bx bxs-cog'></i> Configuración</a>
-            <a href="/administracion" class="nav-link"><i class='bx bx-group'></i> Administración</a>
-            <a href="/register" class="nav-link"><i class='bx bxs-user-plus'></i> Registrar usuario</a>
-        {% endif %}
-        <a href="/logout" class="nav-link"><i class='bx bx-power-off'></i> Cerrar Sesión</a>
     </nav>
-
+    
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menú</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <img src="../static/img/logo.jpg" alt="logo" class="logo img-fluid">
+            <img src="/static/img/logo.jpg" alt="logo" class="logo img-fluid">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-                    <a href="/home" class="nav-link"><i class='bx bxs-home'></i> Inicio </a>
+                    <a href="/home" class="nav-link"><i class='bx bxs-home'></i> Inicio</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bx-money'></i> Movimientos</a>
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class='bx bx-money'></i> Movimientos
+                    </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a href="/ingresos" class="dropdown-item"> Ingresos</a></li>
-                        <li><a href="/egresos" class="dropdown-item"> Egresos</a></li>
+                        <li><a href="/ingresos" class="dropdown-item">Ingresos</a></li>
+                        <li><a href="/egresos" class="dropdown-item">Egresos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="/reportes" class="nav-link"><i class='bx bx-bar-chart-alt'></i> Reportes </a>
+                    <a href="/reportes" class="nav-link"><i class='bx bx-bar-chart-alt'></i> Reportes</a>
                 </li>
+                {% if current_user.privilegios == "Total" %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bxs-archive-in'></i> Activos</a>
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class='bx bxs-archive-in'></i> Activos
+                    </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a href="/activos" class="nav-link"><i class='bx bxs-archive-in'></i> Activos Disponibles </a></li>
-                        <li><a href="/registrar-activos" class="nav-link"><i class='bx bxs-archive-in'></i>Registrar Activos </a></li>
-                        <li><a href="/activos-retirados" class="nav-link"><i class='bx bxs-archive-in'></i>Activos Retirados </a></li>
+                        <li><a href="/activos" class="dropdown-item"><ion-icon name="albums-outline"></ion-icon> Activos Disponibles</a></li>
+                        <li><a href="/activos/registrar-categoria" class="dropdown-item"><ion-icon name="add-circle-outline"></ion-icon> Registro Categoría</a></li>
+                        <li><a href="/activos/registrar-activos" class="dropdown-item"><ion-icon name="add-circle-outline"></ion-icon> Añadir Activos</a></li>
+                        <li><a href="/activos/activos-retirados" class="dropdown-item"><ion-icon name="share-outline"></ion-icon> Activos Retirados</a></li>
                     </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="/configuracion" class="nav-link"><i class='bx bxs-cog'></i> Configuración</a>
                 </li>
                 <li class="nav-item">
                     <a href="/administracion" class="nav-link"><i class='bx bx-group'></i> Administración</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/register" class="nav-link"><i class='bx bxs-user-plus'> </i> Registrar usuario</a>
+                    <a href="/register" class="nav-link"><i class='bx bxs-user-plus'></i> Registrar usuario</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a href="/logout" class="nav-link"><i class='bx bx-power-off'></i> Cerrar Sesión</a>
                 </li>

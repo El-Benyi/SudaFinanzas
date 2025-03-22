@@ -8,56 +8,129 @@ Activos
 <link rel="stylesheet" href="{{ url_for('static' , filename='css/activos.css') }}">
 <script type="text/javascript" src="{{ url_for('static' , filename='JavaScript/show-form-delete.js') }}" defer></script>
 
-<div class="container">
+<div class="main-container">
     <div class="main-container-activos">
         <h2 style="text-align: center; text-decoration: underline; margin-bottom: 20px;">Activos Retirados</h2>
-        {% for activo in activos %}
-            {% if activo.retirado != 1  %}
-                <div class="activo">
-                    <div class="info">
-                        <div class="nombre">
-                            <label>Nombre del Activo: </label>
-                            <strong>{{ activo.categoria.categoria }}</strong>
-                        </div>
-                        <div class="valor">
-                            <label>Valor del Activo: </label>
-                            <strong>{{ activo.valor }}</strong>
-                        </div>
-                        <div class="cantidad-stock">
-                            <label>Cantidad en Stock: </label>
-                            <strong>{{ activo.cantidad }}</strong>
-                        </div>
-                    </div>
-                    <div class="btnes">
-                        <button class="eliminar btn btn-warning">Retirar Activo</button>
-                        <button type="button" class="btn btn-info">Editar Activo</button>
-                    </div>
+        <div class="buscador">
+            <form action="/activos/buscar" method="POST">
+                {{ buscador.hidden_tag() }}
+                {{ buscador.buscador(placeholder="Buscar Activo...") }}
+                <div class="botones">
+                    <a href="/activos" class="btn-reset">Mostrar Todos</a>
+                    <a href="/activos/registrar-activos" class="btn-">Crear Activo</a>
                 </div>
-                <form action="{{ url_for('retiro_activo', id_activo=activo.id) }}" method="POST" class="delete-activo">
-                    {{ form.hidden_tag() }}
-                    
-                    <div class="form-group">
-                        {{ form.razon.label }}
-                        {{ form.razon(class="form-control", id="razon_retiro") }}
+            </form>
+        </div>
+        
+        {% if resultado %}
+            <h3 class="text-center">Resultados de la búsqueda</h3>
+            {% for activo in resultado %}
+                {% if activo.retirado != 1 %}
+                    <div class="activo">
+                        <div class="info">
+                            <div class="nombre">
+                                <label>Nombre del Activo: </label>
+                                <strong>{{ activo.categoria.categoria | upper }}</strong> 
+                            </div>
+                            <div class="valor">
+                                <label>Valor del Activo: </label>
+                                <strong>$ {{ "{:,.0f}".format(activo.valor).replace(",", ".") }}</strong>
+                            </div>
+                            <div class="cantidad-stock">
+                                <label>Cantidad en Stock: </label>
+                                <strong>{{ activo.cantidad }}</strong>
+                            </div>
+                        </div>
+                        <div class="btnes">
+                            <button class="eliminar btn btn-warning">Retirar Activo</button>
+                            <button type="button" class="btn btn-info">Editar Activo</button>
+                        </div>
+                        {% if session["flash_message_" ~ activo.id] %}
+                            <div class="alert alert-{{ session['flash_category_' ~ activo.id] }}">
+                                <span>{{ session["flash_message_" ~ activo.id] }} <ion-icon name="alert-circle-outline" style="transform: translateY(20%);"></ion-icon></span>
+                            </div> <br>
+                            {% set _ = session.pop("flash_message_" ~ activo.id) %}
+                            {% set _ = session.pop("flash_category_" ~ activo.id) %}
+                        {% endif %}
                     </div>
-                    
-                    <div class="form-group">
-                        {{form.recibe.label}}
-                        {{ form.recibe(class="form-control", id="recibe") }}
+                    <div class="overlay" id="overlay"></div>
+                    <form action="{{ url_for('retiro_activo', id_activo=activo.id) }}" method="POST" class="delete-activo">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {{ form.razon.label }}
+                            {{ form.razon(class="form-control", id="razon_retiro") }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.recibe.label }}
+                            {{ form.recibe(class="form-control", id="recibe") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.cantidad.label }}
+                            {{ form.cantidad() }}
+                        </div>
+                        {{ form.submit(class="btn btn-danger") }}
+                        <button class="cancelar btn btn-close" aria-label="Close"></button>
+                    </form>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <h2 class="text-center">Todos los activos</h2>
+            {% for activo in activos %}
+                {% if activo.retirado != 1 %}
+                    <div class="activo">
+                        <div class="info">
+                            <div class="nombre">
+                                <label>Nombre del Activo: </label>
+                                <strong>{{ activo.categoria.categoria | upper }}</strong>
+                            </div>
+                            <div class="valor">
+                                <label>Valor del Activo: </label>
+                                <strong>$ {{ "{:,.0f}".format(activo.valor).replace(",", ".") }}</strong>
+                            </div>
+                            <div class="cantidad-stock">
+                                <label>Cantidad en Stock: </label>
+                                <strong>{{ activo.cantidad }}</strong>
+                            </div>
+                        </div>
+                        {% if current_user.privilegios == "Total" %}
+                            <div class="btnes">
+                                <button class="eliminar btn btn-warning">Retirar Activo</button>
+                                <a href="/activos/actualizar-activo/{{ activo.id }}" type="button" class="btn btn-info">Editar Activo</a>
+                            </div> <br>
+                        {% endif %}
+                        {% if session["flash_message_" ~ activo.id] %}
+                            <div class="alert alert-{{ session['flash_category_' ~ activo.id] }}">
+                                <span>{{ session["flash_message_" ~ activo.id] }} <ion-icon name="alert-circle-outline" style="transform: translateY(20%);"></ion-icon></span>
+                            </div>
+                            {% set _ = session.pop("flash_message_" ~ activo.id) %}
+                            {% set _ = session.pop("flash_category_" ~ activo.id) %}
+                        {% endif %}
                     </div>
-                    <div class="mb-3">
-                        {{ form.cantidad.label }}
-                        {{ form.cantidad() }}
-                    </div>
-                    
-                    {{ form.submit(class="btn btn-danger") }}
-                    <button class="cancelar btn btn-close " aria-label="Close"></button>
-                </form>
-                
-            {% endif %}
-        {% endfor %}
+                    <!-- Formulario de retiro -->
+                    <div class="overlay" id="overlay"></div>
+                    <form action="{{ url_for('retiro_activo', id_activo=activo.id) }}" method="POST" class="delete-activo">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {{ form.razon.label }}
+                            {{ form.razon(class="form-control", id="razon_retiro") }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.recibe.label }}
+                            {{ form.recibe(class="form-control", id="recibe") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.cantidad.label }}
+                            {{ form.cantidad(class="form-control") }}
+                        </div>
+                        <div class="btnes">
+                            {{ form.submit(class="btn btn-danger") }}
+                            <button class="cancelar btn btn-close" aria-label="Close"></button>
+                        </div>
+                    </form>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </div>
 </div>
-
 
 {% endblock %}

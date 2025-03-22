@@ -2,21 +2,217 @@
     width: 100%;
     height: 100vh;
     overflow: auto;
-    background-color: #fff;
+    background-color: rgb(224, 224, 224);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .activo{
-    width: 100%;
+    width: 60%;
     border-radius: 10px;
     padding: 10px 10px 20px 10px;
     margin-bottom: 20px;
-    background-color: red;
+    background-color:rgb(136, 136, 136);
     border: 2px solid black;
     color: #fff;
 }
 
-.delete-activo{
+
+.activo:hover{
+
+    transform: scale(1.05);
+    transition: 0.6s;
+}
+
+.delete-activo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 500px;
+    width: 90%;
+    background-color: #2d302d;
+    color: white;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000; 
+}
+
+.delete-activo .form-group,
+.delete-activo .mb-3 {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.delete-activo label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.delete-activo input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.delete-activo .btnes {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.delete-activo .btn {
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.delete-activo .btn-danger {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+}
+
+.delete-activo .btn-danger:hover {
+    background-color: #b71c1c;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999; 
     display: none;
 }
 
+.delete-activo .cancelar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.delete-activo .cancelar:hover {
+    color: #ffccbc;
+    transform: rotate(180deg) scale(1.2);
+    transition: 0.5s ;
+}
+
+
+@media (max-width: 600px) {
+    .delete-activo {
+        width: 95%;
+    }
+    
+    .delete-activo .btnes {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .delete-activo .btn {
+        width: 100%;
+    }
+}
+
+
+.buscador {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.buscador form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px; 
+}
+
+.buscador form input {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    outline: none;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.buscador form input:focus {
+    border-color: #ffeb3b;
+    background-color: #e3f2fd;
+}
+
+.buscador form .btn- {
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: #ff9800; 
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buscador form button:hover {
+    background: #e65100;
+}
+
+.btn-reset {
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: #4caf50; /* Verde */
+    border-radius: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+
+.btn-reset:hover {
+    background: #1b5e20;
+}
+
+
+@media (max-width:610px){
+    .buscador form{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+    }
+}
+
+@media (max-width:442px){
+    .activo{
+        width: 100%;
+    }
+}
 

@@ -12,40 +12,64 @@
 
 <div class="main-container">
     <div class="container-ingresos">
-        <form method="GET" action="/home">
-            <select name="filtro_año" onchange="this.form.submit()">
-                <option value="">Filtrar por año</option>
-                {% for year in range(2024, 2036) %}
-                    <option value="{{ year }}" {% if request.args.get('filtro_año') == year|string %}selected{% endif %}>
-                        {{ year }}
-                    </option>
-                {% endfor %}
-            </select>
-            
-            <a href="#Egresos">Ver Egresos</a>
-        </form>
+        <div class="container-botones">
+            <form method="GET" action="/home" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                <select name="filtro_año" onchange="this.form.submit()" class="form-control" style="width: 35%;">
+                    <option value="">Filtrar por año</option>
+                    {% for year in range(2024, 2036) %}
+                        <option value="{{ year }}" {% if request.args.get('filtro_año', '') == year|string %}selected{% endif %}>
+                            {{ year }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <select name="filtro_mes" onchange="this.form.submit()" class="form-control" style="width: 35%;">
+                    <option value="">Filtrar por mes</option>
+                    {% set meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
+                                    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"] %}
+                    {% for i in range(1, 13) %}
+                        <option value="{{ i }}" {% if request.args.get('filtro_mes', '') == i|string %}selected{% endif %}>
+                            {{ meses[i-1] }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <a href="/egresos" class="btn btn-info">Ver Egresos</a>
+            </form>
+        </div> <br>
         <div class="container-transacciones">
             
             <div class="main-container-fondos">
                 <div class="container-fondos">
-                    <h2>Historial Ingresos</h2>
+                    <h2 class="text-center">Historial Ingresos</h2>
                     <div class="fondos">
                         {% for ingreso in ingresos %}
                         <div class="tarjeta">
                             <ul>
-                                <li><strong>Cliente:</strong> {{ ingreso.cliente }}</li>
+                                <li><strong>Cliente:</strong> {{ ingreso.cliente_relation.nombre_Cliente }}</li>
                                 <li><strong>Establecimiento:</strong> {{ ingreso.establecimiento }}</li>
                                 <li><strong>Responsable:</strong> {{ ingreso.responsable_pago }}</li>
                                 <li><strong>N° Factura:</strong> {{ ingreso.num_factura }}</li>
-                                <li><strong>Fecha:</strong> {{ ingreso.dia }}/{{ ingreso.mes }}/{{ ingreso.año }}</li>
+                                <li><strong>Fecha:</strong> {{ ingreso.fecha.strftime('%d/%m/%Y') }}</li>
                                 <li><strong>Medio de Pago:</strong> {{ ingreso.medio_pago }}</li>
-                                <li><strong>Monto:</strong> ${{ ingreso.monto }}</li>
-                                <li><strong>Descuento:</strong> ${{ ingreso.descuento }}</li>
-                                <li><strong>Total con Descuento:</strong> ${{ ingreso.total_descuento }}</li>
-                                <li><strong>Total Utilidad:</strong> ${{ ingreso.total_utilidad }}</li>
+                                <li><strong>Monto:</strong> $ {{ "{:,.0f}".format(ingreso.monto).replace(",", ".") }}</li>
+                                <li><strong>Descuento:</strong> $ {{ (ingreso.descuento) }}</li>
+                                <li><strong>Total con Descuento:</strong> $ {{ "{:,.0f}".format(ingreso.total_descuento|float).replace(",", ".") }}</li>
+                                <li><strong>Total Utilidad:</strong> ${{ "{:,.0f}".format(ingreso.total_utilidad).replace(",", ".") }}</li>
                                 <li><strong>Concepto de Pago:</strong> {{ ingreso.concepto_pago }}</li>
                                 <li><strong>Motivo:</strong> {{ ingreso.motivo_ingreso }}</li>
+                                {% if current_user.privilegios == "Total" %}
+                                    <li><a href="/editar_ingreso/{{ ingreso.id }}" class="btn btn-danger">Editar</a></li>
+                                    <li><button class="eliminar btn btn-warning">Borrar Registro</button></li>
+                                {% endif %}
                             </ul>
+                            
+                        </div>
+                        <div class="overlay-show" id="overlay-show"></div>
+                        <div class="deleteForm">
+                            <form action="/eliminar_ingreso/{{ ingreso.id }}">
+                                <h3>¿Desea eliminar este registro?</h3>
+                                <button type="button" class="cancelar-delete btn btn-primary">Cancelar Eliminación</button>
+                                <button type="submit" class="btn btn-danger" id="btnConfirmar" disabled> Confirmar Eliminación en 5 <ion-icon name="alert-circle-outline"></ion-icon></button>
+                            </form>
                         </div>
                         {% endfor %}
                     </div>

@@ -5,20 +5,149 @@
 
 {% block contenido %}
 
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/egresos.css') }}">
+<script type="text/javascript" src="{{ url_for('static' , filename='JavaScript/egresos.js') }}" defer></script>
 
-<div class="container">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" defer></script>
+
+<div class="main-container">
     <h1>Egresos</h1>
 
-    <div class="dropdownn dropend">
-        <button type="button" class="dropdown-toggle btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false">Opciones descuento</button>
-        <ul class="dropdown-menu dropdown-menu-end">
-            <li><a href="/pago_horas_extra" class="nav-link dropdown-item">Pagar Horas Extra</a></li>
-            <li><a href="/pago_reemplazos" class="nav-link dropdown-item">Pagar Reemplazos</a></li>
-            <li><a href="/pago_sueldos" class="nav-link dropdown-item">Pagar Sueldos</a></li>
-        </ul>
-      </div>
+        {% if current_user.privilegios == "Total" %}
+            <div class="dropdownn dropend">
+                <button type="button" class="dropdown-toggle btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false" id="opciones">Opciones Egreso</button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a href="/egresos/gastos" class="nav-link dropdown-item">Gastos</a></li>
+                    <li><a href="/egresos/pago_horas_extra" class="nav-link dropdown-item">Pagar Horas Extra</a></li>
+                    <li><a href="/egresos/pago_reemplazos" class="nav-link dropdown-item">Pagar Reemplazos</a></li>
+                    <li><a href="/egresos/pago_sueldos" class="nav-link dropdown-item">Pagar Sueldos</a></li>
+                    <li><a href="/egresos/pago-cotizaciones" class="nav-link dropdown-item">Pagar Cotizaciones</a></li>
+                </ul>
+            </div>
+        {% endif %}
+
+        <!-- Contenedor Principal de Egresos -->
+    <div class="container-historial-egresos">
+        <div class="section-container">
+            <h2>Pago Horas Extra</h2>
+            <div class="horas_extra">
+                {% for hora in horas %}
+                <div class="tarjeta">
+                    <ul>
+                        <li>Cliente: {{ hora.cliente_relation.nombre_Cliente }}</li>
+                        <li>Establecimiento: {{ hora.establecimiento }}</li>
+                        <li>Nombre: {{ hora.nombre }}</li>
+                        <li>Rut: {{ hora.rut }} </li>
+                        <li>Día Trabajado: {{ hora.dia_trabajado }} </li>
+                        <li>Turno: {{ hora.turno }} </li>
+                        <li>Monto Pagado: $ {{ "{:,.0f}".format(hora.monto).replace(",", ".") }} </li>
+                        <li>Responsable Pago: {{ hora.nombre_paga }} </li>
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="section-container">
+            <h2>Pago Reemplazos</h2>
+            <div class="reemplazos">
+                {% for reemplazo in reemplazos %}
+                <div class="tarjeta">
+                    <ul>
+                        <li>Nombre: {{ reemplazo.nombre }}</li>
+                        <li>Rut: {{ reemplazo.rut }} </li>
+                        <li>Día Trabajado: {{ reemplazo.dia_trabajado }} </li>
+                        <li>Turno: {{ reemplazo.turno }} </li>
+                        <li>Monto Pagado: $ {{ "{:,.0f}".format(reemplazo.monto_pagar).replace(",", ".") }} </li>
+                        <li>Responsable Pago: {{ reemplazo.nombre_paga }} </li>
+                        <li>Pago Cotización: $ {{ "{:,.0f}".format(reemplazo.pago_cotizacion).replace(",", ".") }}</li>
+                        <li>Pago Sueldo: $ {{ "{:,.0f}".format(reemplazo.pago_sueldo).replace(",", ".") }}</li>
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="section-container">
+            <h2>Pago Sueldos</h2>
+            <div class="sueldos_clientes">
+                {% for sueldo in sueldos %}
+                <div class="tarjeta">
+                    <ul>
+                        <li>Cliente: {{ sueldo.cliente_relation.nombre_Cliente }}</li>
+                        <li>Establecimiento: {{ sueldo.establecimiento }}</li>
+                        <li>Responsable de Pago: {{ sueldo.responsable_pago }}</li>
+                        <li>Monto:$ {{ "{:,.0f}".format(sueldo.monto ).replace(",", ".") }}</li>
+                        <li>Nombre: {{ sueldo.nombre }}</li>
+                        <li>Rut: {{ sueldo.rut }}</li>
+                        <li>Número de Cuenta: {{ sueldo.numero_cuenta }}</li>
+                        <li>Factura:
+                            {% if sueldo.factura_ruta %}
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#facturaModal{{ sueldo.id }}">
+                                <img src="{{ url_for('static', filename='uploads/' + sueldo.factura_ruta) }}" alt="Factura" width="200">
+                            </a>
+                            {% else %}
+                            No disponible
+                            {% endif %}
+                        </li>
+                        </ul>
+                </div>
+
+                {% if sueldo.factura_ruta %}
+                    <div class="modal fade" id="facturaModal{{ sueldo.id }}" tabindex="-1" aria-labelledby="facturaModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="facturaModalLabel">Factura de {{ sueldo.cliente }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{ url_for('static', filename='uploads/' + sueldo.factura_ruta) }}" alt="Factura" class="img-fluid" id="imagen-modal">
+                                    <div class="descarga">
+                                        <a href="{{ url_for('static', filename='uploads/' + sueldo.factura_ruta) }}" class="btn btn-success" download="">Descargar</a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="section-container">
+            <h2>Pago Cotizacion</h2>
+            <div class="cotizaciones">
+                {% for cotizacion in cotizaciones %}
+                <div class="tarjeta">
+                    <ul>
+                        <li>Cliente: {{ cotizacion.cliente_relation.nombre_Cliente }}</li>
+                        <li>Establecimiento: {{ cotizacion.establecimiento }}</li>
+                        <li>Responsable de Pago: {{ cotizacion.responsable_pago }}</li>
+                        <li>Monto:$ {{ "{:,.0f}".format(cotizacion.monto ).replace(",", ".") }}</li>
+                        <li>Nombre: {{ cotizacion.nombre }}</li>
+                        <li>Rut: {{ cotizacion.rut }}</li>
+                        <li>Número de Cuenta: {{ cotizacion.fecha_pago }}</li>
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="section-container">
+            <h2>Gastos Generales</h2>
+            <div class="gastos">
+                {% for gasto in gastos %}
+                <div class="tarjeta">
+                    <ul>
+                        <li>Motivo: {{ gasto.motivo_gasto }}</li>
+                        <li>Monto: {{ gasto.monto }}</li>
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
-
-
 
 {% endblock %}

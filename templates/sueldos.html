@@ -4,46 +4,58 @@
 {% endblock %}
 
 {% block contenido %}
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/alertas.css') }}">
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/sueldos.css') }}">
 
-
-<div class="container">
-    <h1>Pago de sueldos</h1>
-    <form action="{{ url_for('pago_sueldos') }}" method="POST" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <div class="mb-3">
-            {{ form.cliente.label() }}
-            {{ form.cliente(class="form-control") }}
-        </div>
-        <div class="mb-3">
-            {{ form.establecimiento.label() }}
-            {{ form.establecimiento(class="form-control") }}
-        </div>
-        <div class="mb-3">
-            {{ form.quien_paga.label() }}
-            {{ form.quien_paga(class="form-control") }}
-        </div>
-        <div class="mb-3">
-            {{ form.monto_pagar.label() }}
-            {{ form.monto_pagar(class="form-control") }}
-        </div>
-        <div class="mb-3">
-            {{ form.factura.label() }}
-            {{ form.factura(class="form-control") }}
-        </div>
-        <div class="mb-3">
-            {{ form.nombre.label() }}
-            {{ form.nombre(class="form-control") }}
-        </div>
-        <div class="mb-3">
-            {{ form.rut.label() }}
-            {{ form.rut(class="form-control") }}
-        </div>
-        <div class="mb-3">
-            {{ form.numero_cuenta.label() }}
-            {{ form.numero_cuenta(class="form-control") }}
-        </div>
-        {{ form.submit(class="btn btn-success") }}
-    </form>
+<div class="main-container">
+    <div class="container">
+        <h1>Pago de sueldos</h1>
+        <form action="{{ url_for('pago_sueldos') }}" method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.cliente.label() }}
+                {{ form.cliente(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.establecimiento.label() }}
+                {{ form.establecimiento(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.quien_paga.label() }}
+                {{ form.quien_paga(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.monto_pagar.label() }}
+                {{ form.monto_pagar(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.factura.label() }}
+                {{ form.factura(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.nombre.label() }}
+                {{ form.nombre(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.rut.label() }}
+                {{ form.rut(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.numero_cuenta.label() }}
+                {{ form.numero_cuenta(class="form-control") }}
+            </div>
+            {{ form.submit(class="btn btn-success") }}
+        </form>
+        {% with errores = get_flashed_messages(category_filter=["danger"]) %}
+            {% if errores %}
+                {% for mensaje in errores %}
+                    <div class="alert alert-danger">
+                        <span>{{ mensaje }} <ion-icon name="alert-circle-outline" style="transform: translateY(20%);"></ion-icon></span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
 </div>
 
 

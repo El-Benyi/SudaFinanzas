@@ -6,4 +6,52 @@ Bienvenido al sitio!
 
 {% block contenido %}
 
+
+<script type="text/javascript" src="{{ url_for('static', filename='JavaScript/reportes.js') }}" defer></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reportes.css') }}">
+
+<div class="main-container">
+    <h1>Reportes</h1>
+    <form method="get" action="{{ url_for('reportes') }}" class="report-form">
+        <label for="año">Selecciona un Año:</label>
+        <select name="año" id="año" class="form-control">
+            {% for year in range(2024, current_year + 1) %}
+                <option value="{{ year }}" {% if year == año %}selected{% endif %}>{{ year }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">Ver Reporte</button>
+    </form>
+    <div class="container-reportes">
+        <div class="sub-container">
+            {% if total_ingresos > 0 or total_egresos > 0 %}
+                <div class="top-row">
+                    <div class="container-ingresos-t">
+                        <h2>Total de Ingresos {{ año }}</h2>
+                        <h3>${{ "{:,.0f}".format(total_ingresos).replace(",", ".") }}</h3>
+                    </div>
+                    <div class="container-egresos-t">
+                        <h2>Total de Egresos {{ año }}</h2>
+                        <h3>${{ "{:,.0f}".format(total_egresos).replace(",", ".") }}</h3>
+                    </div>
+                </div>
+            {% else %}
+                <div class="container-no-t">
+                    <h2>En {{ año }} no hubo movimiento salarial</h2>
+                </div>
+            {% endif %}
+            
+            <div class="container-beneficios">
+                {% if beneficios > 0 %}
+                    <h2>El beneficio del {{ año }} es de $ {{ "{:,.0f}".format(beneficios).replace(",", ".") }}</h2>
+                {% elif beneficios < 0 %}
+                    <h2>El perjuicio del {{ año }} es de $ {{ "{:,.0f}".format(beneficios).replace(",", ".") }}</h2>
+                {% else %}
+                    <div class="container-no-t">
+                        <h2>En {{ año }} no hubo movimiento salarial</h2>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

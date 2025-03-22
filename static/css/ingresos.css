@@ -1,45 +1,149 @@
-.main-container{
-    width: 100vw;
-    height: 100vh;
+.main-container {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    padding: 30px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    gap: 30px; 
+    background: linear-gradient(to right, #f8f9fa, #e9ecef); /* Fondo sutil */
 }
 
-.dinero{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+h1 {
+    font-size: 2.5rem;
+    text-align: center; 
+    margin-bottom: 20px; 
+    color: #333; /* Color más oscuro para mayor legibilidad */
+    font-weight: 600; /* Hacer el título más fuerte */
     width: 100%;
-    height: 10%;
-    transform: translateY(20vh);
 }
-#dinero{
-    font-size: 5em;
-    color: aliceblue;
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 2px solid black;
-    backdrop-filter: blur(15px);
-    border-radius: 40px;
-    width: 60%;
+
+.container-tarjeta {
+    width: 80%;
+    max-width: 1000px; /* Para evitar que se estire demasiado */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; 
     text-align: center;
+    transition: transform 0.3s ease;
 }
-.btn-finanzas{
+
+.dinero {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 100%;
-    height: 10%;
-    transform: translateY(40vh);
-}
-#ing_fondos{
-    font-size: 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.dinero:hover {
+    transform: translateY(-10px); /* Ligero efecto de elevación */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada al pasar el ratón */
+}
 
-@media (max-width: 367px) {
-    #dinero{
-        font-size: 4em;
+#dinero {
+    font-size: 4vw;
+    color: #007bff; /* Color azul más profesional */
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+#ing_fondos {
+    font-size: 1.8rem;
+    padding: 14px 30px;
+    border-radius: 25px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#ing_fondos:hover {
+    background-color: #218838;
+    transform: translateY(-5px); /* Efecto sutil de elevar el botón */
+}
+
+#ing_fondos:active {
+    background-color: #1e7e34; /* Color más oscuro cuando se hace clic */
+    transform: translateY(0); /* Restablecer el efecto de elevación */
+}
+
+.modal-dialog {
+    max-width: 800px;
+}
+
+.modal-header {
+    background-color: #f1f1f1;
+    border-bottom: 2px solid #ddd;
+}
+
+.modal-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.form-control {
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #007bff; /* Color azul cuando se enfoca el campo */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+.modal-footer {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-top: 2px solid #ddd;
+}
+
+@media (max-width: 767px) {
+    .main-container {
+        padding: 15px;
+    }
+
+    .container-tarjeta {
+        width: 100%;
+        padding: 15px;
+    }
+
+    #dinero {
+        font-size: 8vw;
+    }
+
+    #ing_fondos {
+        font-size: 1.6rem;
+        padding: 12px 25px;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+        padding: 10px;
     }
 }
-
-

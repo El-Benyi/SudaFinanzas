@@ -1,0 +1,135 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+    color: #333;
+}
+
+/* Contenedor principal */
+.main-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Título principal */
+h1 {
+    font-size: 2.8rem;
+    color: #1e88e5;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Botones de opciones */
+#opciones {
+    margin-bottom: 20px;
+}
+
+/* Contenedor de historial de egresos */
+.container-historial-egresos {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Secciones principales */
+.section-container {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Títulos de sección */
+.section-container h2 {
+    font-size: 1.8rem;
+    color: #1565c0;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Contenido dentro de cada sección */
+.section-container .sueldos_clientes, 
+.cotizaciones, 
+.reemplazos, 
+.horas_extra,
+.gastos {
+    height: 85%;
+    margin-top: 10px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Tarjetas */
+.tarjeta {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Lista dentro de tarjetas */
+.tarjeta ul {
+    list-style: none;
+    padding: 0;
+}
+
+.tarjeta ul li {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+/* Imagen dentro de tarjetas */
+.tarjeta img {
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Responsividad */
+@media (max-width: 1024px) {
+    .container-historial-egresos {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .container-historial-egresos {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 2.3rem;
+    }
+}

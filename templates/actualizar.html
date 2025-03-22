@@ -6,7 +6,9 @@ Configuración
 
 {% block contenido %}
 
-<div class="container">
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/actualizar_usuarios.css') }}">
+
+<div class="main-container">
     <form method="POST">
         <div class="mb-3">
             <h2>Editor de Perfil</h2>

@@ -1,0 +1,44 @@
+{% extends "base_template.html" %}
+
+{% block titulo %}
+Configuración
+{% endblock %}
+
+{% block contenido %}
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/alertas.css') }}">
+<link rel="stylesheet" href="{{ url_for('static' , filename='css/gastos.css') }}">
+
+<div class="main-container">
+    <div class="container">
+        <div class="container-header">
+            <h1>Gastos</h1>
+        </div>
+        <div class="container-form">
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+        
+                <div class="mb-3">
+                    {{ form.motivo_gasto.label }}
+                    {{ form.motivo_gasto(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.monto.label }}
+                    {{ form.monto(class="form-control") }}
+                </div>
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+            
+            {% with errores = get_flashed_messages(category_filter=["danger"]) %}
+                {% if errores %}
+                    {% for mensaje in errores %}
+                        <div class="alert alert-danger">
+                            <span>{{ mensaje }} <ion-icon name="alert-circle-outline" style="transform: translateY(20%);"></ion-icon></span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

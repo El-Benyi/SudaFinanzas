@@ -6,16 +6,27 @@ Bienvenido al sitio!
 
 {% block contenido %}
 
-<div class="container">
-    <form action="{{ url_for("categoria") }}" method="POST">
+
+
+<div class="main-container container" style="padding: 30px 20px; max-width: 600px; margin: 0 auto; box-sizing: border-box; background-color: #f8f9fa; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+    <form action="{{ url_for('categoria') }}" method="POST">
+        <div class="titulo text-center mb-4">
+            <h1 style="font-size: 2rem; color: #343a40; font-weight: bold;">Registro de Categorías</h1>
+        </div>
         {{ form.hidden_tag() }}
-        <div class="mb-3">
-            {{ form.categoria.label }}
+        
+        <div class="mb-4">
+            <label for="categoria" class="form-label">Categoría</label>
             {{ form.categoria(class="form-control") }}
         </div>
-        {{ form.submit(class="btn btn-success") }}
+        
+        <div class="btnes text-center">
+            {{ form.submit(class="btn btn-success btn-lg") }}
+            <a href="/activos/registrar-activos" class="btn btn-link" style="color: #007bff; text-decoration: none; font-size: 1.1rem;">Registrar Activos</a>
+        </div>
     </form>
 </div>
+
 
 
 {% endblock %}

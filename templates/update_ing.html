@@ -1,0 +1,55 @@
+{% extends "base_template.html" %}
+
+{% block titulo %}
+Bienvenido al sitio!
+{% endblock %}
+
+{% block contenido %}
+<script type="text/javascript" src="{{ url_for('static' , filename='JavaScript/calendario.js') }}" defer></script>
+
+
+<div class="main-container">
+    <form action="{{ url_for('editar_ingreso', id=ingreso.id) }}" method="POST">
+        <h1>Editando ingreso de ID: {{ ingreso.id }}</h1>
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.cliente.label(class="form-label") }}
+            {{ form.cliente(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.establecimiento.label(class="form-label") }}
+            {{ form.establecimiento(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.responsable_pago.label(class="form-label") }}
+            {{ form.responsable_pago(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.num_factura.label(class="form-label") }}
+            {{ form.num_factura(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.fecha.label(class="form-label") }}
+            {{ form.fecha(class="form-control", id="fecha") }}
+        </div>
+        <div class="mb-3">
+            {{ form.medio_pago.label(class="form-label") }}
+            {{ form.medio_pago(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.concepto_pago.label(class="form-label") }}
+            {{ form.concepto_pago(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.motivo_ingreso.label(class="form-label") }}
+            {{ form.motivo_ingreso(class="form-control") }}
+        </div>
+        <div class="modal-footer">
+            <a  href="/" class="btn btn-secondary">Cancelar Ingreso</a>
+            {{ form.submit(class="btn btn-success") }}
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}

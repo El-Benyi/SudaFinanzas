@@ -1,11 +1,11 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.navbar{
-    position: relative;
+.navbar {
+    position: fixed;
     width: 15vw;
     height: 100vh;
     display: flex;
@@ -13,35 +13,74 @@
     justify-content: flex-start;
     background-color: #002060;
     color: #fff;
-    gap: 20px;
+    gap: 15px;
+    padding-top: 10px;
 }
 
-.navbar a{
+.navbar .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.navbar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.btnesNav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+}
+
+#clientes .dropdown-menu .nav-link{
+    width: 100%;
+    color: black;
+}
+
+#movimientos .dropdown-menu .nav-link{
+    width: 100%;
+    color: black;
+}
+
+#activosID .dropdown-menu .nav-link{
+    width: 100%;
+    color: black;
+}
+
+.navbar a, .navbar .dropdown button {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 5%;
+    justify-content: start;
+    width: 80%;
+    height: 45px;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    transition: 0.3s;
 }
-.navbar .dropdown{
-    width: 100%;
-    height: 50px;
+
+.navbar .dropdown {
+    width: 80%;
 }
-.navbar .dropdown button{
+
+.navbar .dropdown button {
     width: 100%;
-    height: 100%;
+    text-align: left;
 }
-.navbar a:hover , .dropdown button:hover{
+
+.navbar a:hover, .navbar .dropdown button:hover {
     background-color: rgba(160, 105, 95, 0.74);
     text-decoration: underline;
     outline: 2px solid white;
-    transition:0.10s;
-}
-
-.navbar img{
-    width: 150px;
-    height: 150px;
-    border-radius: 100px;
+    transition: 0.2s;
 }
 
 .navbar-toggler {
@@ -49,12 +88,20 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 1406px) {
     .navbar{
         width: 100%;
         height: 10%;
         display: flex;
-        position: fixed;
+        justify-content: center;
+        align-items: center;
+    }
+    .navbar .navbar-toggler{
+        position: absolute;
+        left: 0;
+    }
+    .logo{
+        display: none;
     }
     .offcanvas-body {
         display: flex;
