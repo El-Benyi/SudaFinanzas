@@ -87,6 +87,8 @@
         </div>
     </nav>
     
+    <!-- NavBar Responsiva -->
+
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menú</h5>
@@ -107,6 +109,15 @@
                         <li><a href="/egresos" class="dropdown-item">Egresos</a></li>
                     </ul>
                 </li>
+                <div class="dropdown dropend" id="clientes">
+                    <button type="button" class="nav-link dropdown-toggle boton-nav" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class='bx bx-user'></i> Clientes
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a href="/nuevo-cliente" class="nav-link dropdown-item">Añadir Cliente</a></li>
+                        <li><a href="/clientes" class="nav-link dropdown-item">Lista de Clientes</a></li>
+                    </ul>
+                </div>
                 <li class="nav-item">
                     <a href="/reportes" class="nav-link"><i class='bx bx-bar-chart-alt'></i> Reportes</a>
                 </li>

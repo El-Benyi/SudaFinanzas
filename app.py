@@ -102,6 +102,7 @@ def register():
             flash("Form invalido")
             return render_template("register.html", form_registro=form)
     else:
+        print("Usuario No existe")
         return redirect(url_for("home"))
         
 

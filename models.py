@@ -299,6 +299,7 @@ class Option_Client(db.Model):
     id                  = db.Column(db.Integer, primary_key=True)
 
     nombre_Cliente      = db.Column(db.String(255), nullable=False)
+    estado              = db.Column(db.Boolean)
 
 
     created_at         = db.Column(db.DateTime, default=db.func.now()) 
