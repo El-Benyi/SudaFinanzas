@@ -299,12 +299,13 @@ class Option_Client(db.Model):
     id                  = db.Column(db.Integer, primary_key=True)
 
     nombre_Cliente      = db.Column(db.String(255), nullable=False)
-    estado              = db.Column(db.Boolean)
+    estado              = db.Column(db.Boolean, default=True, nullable=False)
 
 
     created_at         = db.Column(db.DateTime, default=db.func.now()) 
     updated_at         = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now()) 
 
+    @staticmethod
     def obtener_Clientes():
         return Option_Client.query.all()
 

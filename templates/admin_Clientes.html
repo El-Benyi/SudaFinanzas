@@ -14,7 +14,10 @@
                     <tr class="bg-gray-600 text-white">
                         <th class="border border-gray-400 px-4 py-2">Id del Cliente</th>
                         <th class="border border-gray-400 px-4 py-2">Nombre del Cliente</th>
-                        <th class="border border-gray-400 px-4 py-2">Botones</th>
+                        <th class="border border-gray-400 px-4 py-2">Estado del Cliente</th>
+                        {% if current_user.privilegios == "Total" %}
+                            <th class="border border-gray-400 px-4 py-2">Botones</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -22,10 +25,22 @@
                         <tr class="bg-gray-100 hover:bg-gray-300">
                             <td class="border border-gray-400 px-4 py-2 text-center">{{ cliente.id }}</td>
                             <td class="border border-gray-400 px-4 py-2 text-center">{{ cliente.nombre_Cliente }}</td>
-                            <td class="border border-gray-400 px-4 py-2 text-center">
-                                <button class="btn btn-danger px-3 py-1 rounded-md">Eliminar Cliente</button>
-                                <button class="btn btn-info px-3 py-1 rounded-md">Editar Cliente</button>
-                            </td>
+                            {% if cliente.estado == 0 %}
+                                <td class="border border-gray-400 px-4 py-2 text-center text-red-600">Inactivo</td>
+                            {% else %}
+                                <td class="border border-gray-400 px-4 py-2 text-center text-green-600">Activo</td>
+                            {% endif %}
+                            {% if current_user.privilegios == "Total" %}
+                                {% if cliente.estado == 0 %}
+                                    <td class="border border-gray-400 px-4 py-2 text-center">
+                                        <a href="/editar-usuario/{{ cliente.id }}" class="btn btn-primary px-3 py-1 rounded-md">Activar Cliente</a>
+                                    </td>
+                                {% else %}
+                                    <td class="border border-gray-400 px-4 py-2 text-center">
+                                        <a href="/editar-usuario/{{ cliente.id }}" class="btn btn-danger px-3 py-1 rounded-md">Desactivar Cliente</a>
+                                    </td>
+                                {% endif %}
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>

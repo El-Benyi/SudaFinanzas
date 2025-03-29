@@ -831,3 +831,21 @@ def clientes():
     clientes = Option_Client.obtener_Clientes() 
 
     return render_template("admin_clientes.html", clientes=clientes)
+
+@app.route("/editar-usuario/<int:id_cliente>", methods=["GET", "POST"])
+@login_required
+def editar_cliente(id_cliente):
+    if current_user.privilegios != "Total":
+        return redirect("/")
+
+    # Buscar al cliente
+    cliente = Option_Client.query.get(id_cliente)
+
+    if cliente:
+        # Cambiar el estado de activo a inactivo o viceversa
+        cliente.estado = not cliente.estado  # Si es True (Activo), se cambia a False (Inactivo), y viceversa
+
+        # Guardar los cambios en la base de datos
+        db.session.commit()
+
+    return redirect("/clientes")  # Redirigir de nuevo a la lista de clientes
